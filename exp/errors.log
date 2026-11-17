@@ -1,0 +1,30 @@
+exact by fold: [0.4686, 0.5279, 0.4477, 0.4075, 0.3119] mean 0.4327
+truth in top 2: 0.6224 top 3: 0.7152
+true rank (rows) vs predicted rank (cols):
+[[0.67  0.17  0.091 0.068]
+ [0.16  0.567 0.195 0.079]
+ [0.097 0.181 0.587 0.136]
+ [0.073 0.082 0.128 0.717]]
+wrong share 0.5569 patterns (predicted sequence of true ranks):
+  1324: 0.167
+  2134: 0.160
+  1243: 0.112
+  3214: 0.072
+  1432: 0.060
+  3124: 0.050
+  2143: 0.046
+  2314: 0.043
+  4321: 0.040
+  4123: 0.036
+  1342: 0.034
+  1423: 0.034
+fold 0 g_3e9f [('1243', np.float64(0.11)), ('2134', np.float64(0.069)), ('1432', np.float64(0.049)), ('1342', np.float64(0.039)), ('2143', np.float64(0.037))]
+fold 1 g_549d [('1324', np.float64(0.145)), ('2134', np.float64(0.113)), ('3214', np.float64(0.036)), ('2314', np.float64(0.026)), ('1432', np.float64(0.025))]
+fold 2 g_a892 [('1243', np.float64(0.082)), ('2134', np.float64(0.078)), ('1324', np.float64(0.069)), ('1432', np.float64(0.04)), ('2143', np.float64(0.033))]
+fold 3 g_e62a [('1324', np.float64(0.093)), ('2134', np.float64(0.078)), ('1243', np.float64(0.064)), ('3214', np.float64(0.045)), ('1432', np.float64(0.036))]
+fold 4 g_e666 [('1324', np.float64(0.124)), ('2134', np.float64(0.111)), ('3214', np.float64(0.087)), ('3124', np.float64(0.062)), ('2314', np.float64(0.047))]
+confidence 0-0.3: share 0.369 accuracy 0.237
+confidence 0.3-0.5: share 0.355 accuracy 0.442
+confidence 0.5-0.7: share 0.190 accuracy 0.647
+confidence 0.7-0.9: share 0.076 accuracy 0.868
+confidence 0.9-1.01: share 0.010 accuracy 0.969

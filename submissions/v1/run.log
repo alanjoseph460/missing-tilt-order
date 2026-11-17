@@ -1,0 +1,32 @@
+/workspace/missing-tilt-order/submissions/v1/solution.py:128: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.view_net = nn.TransformerEncoder(layer, 2)
+  epoch 10: loss 5.4802
+  epoch 20: loss 5.2262
+  epoch 30: loss 5.0707
+  epoch 40: loss 5.0438
+held-out series g_3e9fe6b6d2642a44: exact-order accuracy 0.5112 on 493 rows
+/workspace/missing-tilt-order/submissions/v1/solution.py:128: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.view_net = nn.TransformerEncoder(layer, 2)
+  epoch 10: loss 5.6102
+  epoch 20: loss 5.3259
+  epoch 30: loss 5.1693
+  epoch 40: loss 5.1171
+held-out series g_549db4a2f284cd89: exact-order accuracy 0.5265 on 718 rows
+  epoch 10: loss 5.5626
+  epoch 20: loss 5.2086
+  epoch 30: loss 5.1155
+  epoch 40: loss 5.0279
+held-out series g_a8928c943d46966a: exact-order accuracy 0.4719 on 784 rows
+  epoch 10: loss 5.4675
+  epoch 20: loss 5.1375
+  epoch 30: loss 4.9853
+  epoch 40: loss 4.9099
+held-out series g_e62a6480e8f1dcf5: exact-order accuracy 0.4119 on 670 rows
+  epoch 10: loss 5.4227
+  epoch 20: loss 5.1426
+  epoch 30: loss 4.9935
+  epoch 40: loss 4.9407
+held-out series g_e666ac0dfb3e9f5a: exact-order accuracy 0.3243 on 404 rows
+held-out accuracy over all training rows: 0.4585
+wrote 2834 rows to working/submission.csv
+wall time: 533s

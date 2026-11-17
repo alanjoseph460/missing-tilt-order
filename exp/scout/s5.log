@@ -1,0 +1,63 @@
+TRAIN: offset of each angle position against p0 from the series mean cross-correlation (full +-32 px search, circular). pk = peak of the mean map, bg = 99.9th percentile of the map away from the peak
+e666 vs p0: p1 (-11,-6) pk 0.083 | p2 (-9,-2) pk 0.059 | p3 (-13,-5) pk 0.039 | p4 (-6,+10) pk 0.032 | p5 (-5,+16) pk 0.033
+     adjacent: p0-p1 (-11,-6) |d| 12.5 pk 0.083 bg 0.063 zero 0.035 row-hit 0.09 | p1-p2 (+0,+4) |d| 4.0 pk 0.115 bg 0.072 zero 0.074 row-hit 0.12 | p2-p3 (-3,-3) |d| 4.2 pk 0.108 bg 0.073 zero 0.082 row-hit 0.11 | p3-p4 (+10,+17) |d| 19.7 pk 0.075 bg 0.056 zero 0.023 row-hit 0.06 | p4-p5 (+0,+5) |d| 5.0 pk 0.117 bg 0.074 zero 0.067 row-hit 0.13
+a892 vs p0: p1 (-2,-4) pk 0.107 | p2 (+0,-2) pk 0.069 | p3 (+3,+0) pk 0.049 | p4 (+6,+0) pk 0.037 | p5 (+4,-4) pk 0.037
+     adjacent: p0-p1 (-2,-4) |d| 4.5 pk 0.107 bg 0.074 zero 0.058 row-hit 0.11 | p1-p2 (+3,+2) |d| 3.6 pk 0.116 bg 0.084 zero 0.100 row-hit 0.16 | p2-p3 (+2,+2) |d| 2.8 pk 0.121 bg 0.080 zero 0.098 row-hit 0.17 | p3-p4 (+4,+0) |d| 4.0 pk 0.124 bg 0.081 zero 0.114 row-hit 0.15 | p4-p5 (-4,-4) |d| 5.7 pk 0.115 bg 0.076 zero 0.070 row-hit 0.15
+3e9f vs p0: p1 (-2,-2) pk 0.157 | p2 (-3,+2) pk 0.102 | p3 (-1,-7) pk 0.069 | p4 (+0,-9) pk 0.049 | p5 (-14,+9) pk 0.044
+     adjacent: p0-p1 (-2,-2) |d| 2.8 pk 0.157 bg 0.108 zero 0.140 row-hit 0.26 | p1-p2 (-1,+4) |d| 4.1 pk 0.156 bg 0.099 zero 0.087 row-hit 0.25 | p2-p3 (+0,-10) |d| 10.0 pk 0.142 bg 0.081 zero 0.056 row-hit 0.22 | p3-p4 (+5,-2) |d| 5.4 pk 0.159 bg 0.104 zero 0.105 row-hit 0.23 | p4-p5 (-18,+19) |d| 26.2 pk 0.078 bg 0.051 zero 0.013 row-hit 0.06
+e62a vs p0: p1 (-7,-2) pk 0.103 | p2 (-13,-3) pk 0.063 | p3 (-9,-5) pk 0.048 | p4 (-21,-3) pk 0.036 | p5 (-14,+8) pk 0.029
+     adjacent: p0-p1 (-7,-2) |d| 7.3 pk 0.103 bg 0.080 zero 0.080 row-hit 0.11 | p1-p2 (-5,+0) |d| 5.0 pk 0.122 bg 0.078 zero 0.103 row-hit 0.15 | p2-p3 (+2,-2) |d| 2.8 pk 0.120 bg 0.076 zero 0.092 row-hit 0.17 | p3-p4 (-10,+2) |d| 10.2 pk 0.107 bg 0.075 zero 0.051 row-hit 0.13 | p4-p5 (+5,+11) |d| 12.1 pk 0.101 bg 0.065 zero 0.029 row-hit 0.11
+549d vs p0: p1 (+2,-8) pk 0.120 | p2 (+17,+0) pk 0.070 | p3 (+7,-9) pk 0.053 | p4 (+14,-23) pk 0.032 | p5 (+18,-20) pk 0.029
+     adjacent: p0-p1 (+2,-8) |d| 8.2 pk 0.120 bg 0.082 zero 0.037 row-hit 0.14 | p1-p2 (+15,+8) |d| 17.0 pk 0.101 bg 0.074 zero 0.018 row-hit 0.11 | p2-p3 (-10,-8) |d| 12.8 pk 0.108 bg 0.082 zero 0.022 row-hit 0.10 | p3-p4 (+5,-15) |d| 15.8 pk 0.109 bg 0.074 zero 0.008 row-hit 0.13 | p4-p5 (+4,+4) |d| 5.7 pk 0.131 bg 0.093 zero 0.062 row-hit 0.18
+row-hit = share of rows whose own cross-correlation peak (full range) lies within 2 px of the series offset; chance is 25/4096 = 0.006
+
+Row-hit by angle gap (train, per series): how often one row alone shows the series offset
+e666 gap1 0.10 gap2 0.04 gap3 0.03 gap4 0.02 gap5 0.02
+a892 gap1 0.15 gap2 0.06 gap3 0.03 gap4 0.03 gap5 0.02
+3e9f gap1 0.20 gap2 0.06 gap3 0.03 gap4 0.03 gap5 0.02
+e62a gap1 0.13 gap2 0.06 gap3 0.03 gap4 0.02 gap5 0.02
+549d gap1 0.13 gap2 0.04 gap3 0.03 gap4 0.01 gap5 0.01
+
+Does the offset vary inside a series? p1-p2 and p2-p3 mean-map peak for halves of the series split by array_index
+e666 p1-p2 low (np.int64(0), np.int64(4)) high (np.int64(0), np.int64(4)) p2-p3 low (np.int64(-3), np.int64(-3)) high (np.int64(-2), np.int64(-3)) p3-p4 low (np.int64(9), np.int64(17)) high (np.int64(10), np.int64(17))
+a892 p1-p2 low (np.int64(3), np.int64(2)) high (np.int64(4), np.int64(2)) p2-p3 low (np.int64(2), np.int64(2)) high (np.int64(2), np.int64(2)) p3-p4 low (np.int64(4), np.int64(0)) high (np.int64(3), np.int64(0))
+3e9f p1-p2 low (np.int64(-1), np.int64(4)) high (np.int64(-1), np.int64(4)) p2-p3 low (np.int64(0), np.int64(-10)) high (np.int64(0), np.int64(-10)) p3-p4 low (np.int64(5), np.int64(-2)) high (np.int64(5), np.int64(-2))
+e62a p1-p2 low (np.int64(-5), np.int64(0)) high (np.int64(-5), np.int64(0)) p2-p3 low (np.int64(2), np.int64(-2)) high (np.int64(2), np.int64(-2)) p3-p4 low (np.int64(-10), np.int64(2)) high (np.int64(-10), np.int64(2))
+549d p1-p2 low (np.int64(15), np.int64(8)) high (np.int64(14), np.int64(8)) p2-p3 low (np.int64(-10), np.int64(-8)) high (np.int64(-10), np.int64(-8)) p3-p4 low (np.int64(5), np.int64(-15)) high (np.int64(4), np.int64(-15))
+
+SLOT0 against SLOT5, all series, full range
+train e666 offset (-5,+16) |d| 16.8 pk 0.033 zero 0.001 row-hit 0.02
+train a892 offset (+4,-4) |d| 5.7 pk 0.037 zero 0.021 row-hit 0.02
+train 3e9f offset (-14,+9) |d| 16.6 pk 0.044 zero 0.023 row-hit 0.02
+train e62a offset (-14,+8) |d| 16.1 pk 0.029 zero 0.008 row-hit 0.02
+train 549d offset (+18,-20) |d| 26.9 pk 0.029 zero -0.002 row-hit 0.01
+test 0262 offset (+16,-11) |d| 19.4 pk 0.032 zero 0.001 row-hit 0.02
+test 7fae offset (+11,+16) |d| 19.4 pk 0.034 zero 0.002 row-hit 0.03
+test c61c offset (+6,-2) |d| 6.3 pk 0.045 zero 0.033 row-hit 0.02
+test df60 offset (-5,-1) |d| 5.1 pk 0.040 zero 0.036 row-hit 0.02
+
+TEST-SIDE ARTEFACT, shown on TRAIN only: pooling rows of a series makes the frames separable. For each train series, mean cross-correlation map of slot 0 against the middle views GROUPED BY TRUE POSITION has a sharp peak (above); grouped by raw slot it is a mix of 4 peaks:
+e666 raw slot 1 against slot 0: top 6 values of the mean map [0.041999999433755875, 0.041999999433755875, 0.041999999433755875, 0.041999999433755875, 0.041999999433755875, 0.041999999433755875] peak at (np.int64(-13), np.int64(-5))
+a892 raw slot 1 against slot 0: top 6 values of the mean map [0.061000000685453415, 0.05999999865889549, 0.05999999865889549, 0.05900000035762787, 0.05900000035762787, 0.05900000035762787] peak at (np.int64(0), np.int64(-3))
+
+NEAR-DUPLICATE ROWS (same particle picked twice or overlapping crops)
+train identical view: 3e9f idx 435 slot 1 pos 4 == 3e9f idx 117 slot 3 pos 4
+train identical view: 3e9f idx 435 slot 2 pos 3 == 3e9f idx 117 slot 4 pos 3
+train identical view: 3e9f idx 435 slot 5 == 3e9f idx 117 slot 5
+train e666 rows with another row at slot-0 corr > 0.5: 21 of 404, > 0.8: 6
+train a892 rows with another row at slot-0 corr > 0.5: 18 of 784, > 0.8: 6
+train 3e9f rows with another row at slot-0 corr > 0.5: 18 of 493, > 0.8: 6
+train e62a rows with another row at slot-0 corr > 0.5: 14 of 670, > 0.8: 2
+train 549d rows with another row at slot-0 corr > 0.5: 8 of 718, > 0.8: 0
+test identical view: df60 idx 578 slot 4 == df60 idx 614 slot 4
+test 0262 rows with another row at slot-0 corr > 0.5: 12 of 614, > 0.8: 0
+test 7fae rows with another row at slot-0 corr > 0.5: 22 of 904, > 0.8: 4
+test c61c rows with another row at slot-0 corr > 0.5: 20 of 690, > 0.8: 2
+test df60 rows with another row at slot-0 corr > 0.5: 25 of 626, > 0.8: 8
+
+array_index against label per series (Spearman rho of the slot holding each angle rank)
+e666 rank1 +0.013 (p 0.79) rank2 -0.058 (p 0.25) rank3 -0.009 (p 0.86) rank4 +0.055 (p 0.27)
+a892 rank1 -0.073 (p 0.04) rank2 -0.003 (p 0.94) rank3 +0.018 (p 0.62) rank4 +0.057 (p 0.11)
+3e9f rank1 +0.017 (p 0.70) rank2 -0.036 (p 0.42) rank3 -0.068 (p 0.13) rank4 +0.084 (p 0.06)
+e62a rank1 +0.001 (p 0.98) rank2 -0.028 (p 0.48) rank3 +0.004 (p 0.93) rank4 +0.023 (p 0.56)
+549d rank1 -0.055 (p 0.14) rank2 +0.003 (p 0.94) rank3 -0.043 (p 0.25) rank4 +0.099 (p 0.01)

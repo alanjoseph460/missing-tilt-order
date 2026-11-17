@@ -1,0 +1,158 @@
+train 3069 rows, 5 series; test 2834 rows, 4 series
+sample orders: {'1234': 2834} | ids match test: True
+train label malformed: 0 | distinct orders: 24
+label counts: min 112 (3412), max 147 (4321), uniform would be 127.9
+rows per series: {'g_3e9fe6b6d2642a44': 493, 'g_549db4a2f284cd89': 718, 'g_a8928c943d46966a': 784, 'g_e62a6480e8f1dcf5': 670, 'g_e666ac0dfb3e9f5a': 404}
+
+== metric self-test ==
+all asserts pass
+
+== baselines on train (exact / pairwise / position) ==
+constant 1234                      0.0420  0.4947  0.2423
+majority order (in sample)         0.0479  0.5053  0.2634
+majority order (leave series out)  0.0420  0.5018  0.2603
+   per held-out series: 0.0365 0.0418 0.0395 0.0493 0.0421
+random orders, 20 draws            mean 0.0409 sd 0.0022 min 0.0365 max 0.0437
+perfect                            1.0000  1.0000  1.0000
+perfect, read back as int          1.0000  1.0000  1.0000
+other readings scored on a perfect prediction: rank_per_slot 0.4047 decreasing 0.0000
+board: AI baseline 0.3086, top 0.4038, chance 0.0417; binomial sd of chance at n=1417 public rows 0.0053
+
+== toy submission ==
+columns ['id', 'order'] rows 2834 all 4-char strings: True | default reader dtype: int64 | valid after normalise: True
+
+== oracles on train ==
+(a) first middle position known, rest guessed: 0.1692 sd 0.0060 (theory 1/6)
+(b) both outer middle positions known, inner guessed: 0.4974 sd 0.0079 (theory 1/2)
+(c) independent pairs, best-order decode: p -> exact / pairwise after decode / position after decode / p^6
+    p=0.70  0.2017  0.7027  0.4249  0.1176
+    p=0.80  0.3714  0.8036  0.5728  0.2621
+    p=0.85  0.4881  0.8537  0.6639  0.3771
+    p=0.90  0.6299  0.9033  0.7662  0.5314
+    p=0.95  0.7996  0.9521  0.8787  0.7351
+(c,d) needed for a target exact score: raw pair p / position acc in that model / position acc if positions were independent (exact^0.25) / position acc if every error is one neighbour swap ((1+exact)/2)
+    exact 0.31: p 0.7688 (decoded pairwise 0.7722)  pos 0.5218  0.7462  0.6550
+    exact 0.40: p 0.8132 (decoded pairwise 0.8169)  pos 0.5958  0.7953  0.7000
+    exact 0.50: p 0.8546 (decoded pairwise 0.8583)  pos 0.6729  0.8409  0.7500
+    exact 0.60: p 0.8902 (decoded pairwise 0.8936)  pos 0.7453  0.8801  0.8000
+
+== images: reading check and untrained diagnostic ==
+sigma 0 stated         mean corr by lag 1..5: 0.0039 0.0027 0.0014 0.0012 0.0002 | slot0 to first 0.0041, to last 0.0013
+sigma 0 rank_per_slot  mean corr by lag 1..5: 0.0028 0.0026 0.0026 0.0025 0.0002 | slot0 to first 0.0022, to last 0.0024
+sigma 0 decreasing     mean corr by lag 1..5: 0.0030 0.0022 0.0020 0.0033 0.0002 | slot0 to first 0.0013, to last 0.0041
+sigma 2 stated         mean corr by lag 1..5: 0.0995 0.0637 0.0375 0.0266 0.0142 | slot0 to first 0.1021, to last 0.0279
+sigma 2 rank_per_slot  mean corr by lag 1..5: 0.0677 0.0664 0.0671 0.0564 0.0142 | slot0 to first 0.0571, to last 0.0657
+sigma 2 decreasing     mean corr by lag 1..5: 0.0735 0.0562 0.0475 0.0917 0.0142 | slot0 to first 0.0279, to last 0.1021
+sigma 2, stated reading, 6x6 mean corr in angle order (-10..+15):
+   1.000 0.104 0.077 0.044 0.028 0.017
+   0.104 1.000 0.116 0.091 0.034 0.025
+   0.077 0.116 1.000 0.106 0.053 0.035
+   0.044 0.091 0.106 1.000 0.092 0.036
+   0.028 0.034 0.053 0.092 1.000 0.081
+   0.017 0.025 0.035 0.036 0.081 1.000
+
+untrained orderings per series (exact / pairwise / position / adjacent-swap share of errors)
+  key c0-c5 sigma2   g_3e9fe6b6d2642a44 n= 493  0.1684  0.6748  0.4118  0.3244
+  key c0-c5 sigma2   g_549db4a2f284cd89 n= 718  0.1379  0.6769  0.4029  0.3393
+  key c0-c5 sigma2   g_a8928c943d46966a n= 784  0.1390  0.6333  0.3756  0.2667
+  key c0-c5 sigma2   g_e62a6480e8f1dcf5 n= 670  0.1299  0.6463  0.3888  0.2813
+  key c0-c5 sigma2   g_e666ac0dfb3e9f5a n= 404  0.1312  0.6597  0.3892  0.2963
+  key c0-c5 sigma2   ALL              n=3069  0.1404  0.6565  0.3925  0.2998
+  pair error rate by true angles: (-5,0) 0.399, (-5,5) 0.338, (-5,10) 0.236, (0,5) 0.421, (0,10) 0.308, (5,10) 0.359
+  position accuracy by angle position (-5,0,5,10): 0.441 0.312 0.332 0.486
+  key c0-c5 sigma0   g_3e9fe6b6d2642a44 n= 493  0.0649  0.5551  0.2875  0.1779
+  key c0-c5 sigma0   g_549db4a2f284cd89 n= 718  0.0474  0.5464  0.2702  0.1901
+  key c0-c5 sigma0   g_a8928c943d46966a n= 784  0.0408  0.5019  0.2586  0.1383
+  key c0-c5 sigma0   g_e62a6480e8f1dcf5 n= 670  0.0403  0.5211  0.2541  0.1602
+  key c0-c5 sigma0   g_e666ac0dfb3e9f5a n= 404  0.0594  0.5425  0.2698  0.1605
+  key c0-c5 sigma0   ALL              n=3069  0.0486  0.5304  0.2665  0.1644
+  best path sigma2   g_3e9fe6b6d2642a44 n= 493  0.1704  0.6670  0.4189  0.3350
+  best path sigma2   g_549db4a2f284cd89 n= 718  0.0752  0.6553  0.3774  0.3795
+  best path sigma2   g_a8928c943d46966a n= 784  0.3265  0.6656  0.4917  0.2803
+  best path sigma2   g_e62a6480e8f1dcf5 n= 670  0.2015  0.6470  0.4470  0.3084
+  best path sigma2   g_e666ac0dfb3e9f5a n= 404  0.1609  0.6679  0.4239  0.3009
+  best path sigma2   ALL              n=3069  0.1935  0.6597  0.4346  0.3248
+train 3069 rows, 5 series; test 2834 rows, 4 series
+sample orders: {'1234': 2834} | ids match test: True
+train label malformed: 0 | distinct orders: 24
+label counts: min 112 (3412), max 147 (4321), uniform would be 127.9
+rows per series: {'g_3e9fe6b6d2642a44': 493, 'g_549db4a2f284cd89': 718, 'g_a8928c943d46966a': 784, 'g_e62a6480e8f1dcf5': 670, 'g_e666ac0dfb3e9f5a': 404}
+
+== metric self-test ==
+all asserts pass
+
+== baselines on train (exact / pairwise / position) ==
+constant 1234                      0.0420  0.4947  0.2423
+majority order (in sample)         0.0479  0.5053  0.2634
+majority order (leave series out)  0.0420  0.5018  0.2603
+   per held-out series: 0.0365 0.0418 0.0395 0.0493 0.0421
+random orders, 20 draws            mean 0.0409 sd 0.0022 min 0.0365 max 0.0437
+perfect                            1.0000  1.0000  1.0000
+perfect, read back as int          1.0000  1.0000  1.0000
+other readings scored on a perfect prediction: rank_per_slot 0.4047 decreasing 0.0000
+board: AI baseline 0.3086, top 0.4038, chance 0.0417; binomial sd of chance at n=1417 public rows 0.0053
+
+== toy submission ==
+columns ['id', 'order'] rows 2834 all 4-char strings: True | default reader dtype: int64 | valid after normalise: True
+
+== oracles on train ==
+(a) first middle position known, rest guessed: 0.1692 sd 0.0060 (theory 1/6)
+(b) both outer middle positions known, inner guessed: 0.4974 sd 0.0079 (theory 1/2)
+(c) independent pairs, best-order decode: p -> exact / pairwise after decode / position after decode / p^6
+    p=0.70  0.2017  0.7027  0.4249  0.1176
+    p=0.80  0.3714  0.8036  0.5728  0.2621
+    p=0.85  0.4881  0.8537  0.6639  0.3771
+    p=0.90  0.6299  0.9033  0.7662  0.5314
+    p=0.95  0.7996  0.9521  0.8787  0.7351
+(c,d) needed for a target exact score: raw pair p / position acc in that model / position acc if positions were independent (exact^0.25) / position acc if every error is one neighbour swap ((1+exact)/2)
+    exact 0.31: p 0.7688 (decoded pairwise 0.7722)  pos 0.5218  0.7462  0.6550
+    exact 0.40: p 0.8132 (decoded pairwise 0.8169)  pos 0.5958  0.7953  0.7000
+    exact 0.50: p 0.8546 (decoded pairwise 0.8583)  pos 0.6729  0.8409  0.7500
+    exact 0.60: p 0.8902 (decoded pairwise 0.8936)  pos 0.7453  0.8801  0.8000
+
+== images: reading check and untrained diagnostic ==
+sigma 0 stated         mean corr by lag 1..5: 0.0039 0.0027 0.0014 0.0012 0.0002 | slot0 to first 0.0041, to last 0.0013
+sigma 0 rank_per_slot  mean corr by lag 1..5: 0.0028 0.0026 0.0026 0.0025 0.0002 | slot0 to first 0.0022, to last 0.0024
+sigma 0 decreasing     mean corr by lag 1..5: 0.0030 0.0022 0.0020 0.0033 0.0002 | slot0 to first 0.0013, to last 0.0041
+sigma 2 stated         mean corr by lag 1..5: 0.0995 0.0637 0.0375 0.0266 0.0142 | slot0 to first 0.1021, to last 0.0279
+sigma 2 rank_per_slot  mean corr by lag 1..5: 0.0677 0.0664 0.0671 0.0564 0.0142 | slot0 to first 0.0571, to last 0.0657
+sigma 2 decreasing     mean corr by lag 1..5: 0.0735 0.0562 0.0475 0.0917 0.0142 | slot0 to first 0.0279, to last 0.1021
+sigma 2, stated reading, 6x6 mean corr in angle order (-10..+15):
+   1.000 0.104 0.077 0.044 0.028 0.017
+   0.104 1.000 0.116 0.091 0.034 0.025
+   0.077 0.116 1.000 0.106 0.053 0.035
+   0.044 0.091 0.106 1.000 0.092 0.036
+   0.028 0.034 0.053 0.092 1.000 0.081
+   0.017 0.025 0.035 0.036 0.081 1.000
+
+untrained orderings per series (exact / pairwise / position / adjacent-swap share of errors)
+  key c0-c5 sigma2   g_3e9fe6b6d2642a44 n= 493 0.1684  0.6748  0.4118  0.3244
+  key c0-c5 sigma2   g_549db4a2f284cd89 n= 718 0.1379  0.6769  0.4029  0.3393
+  key c0-c5 sigma2   g_a8928c943d46966a n= 784 0.1390  0.6333  0.3756  0.2667
+  key c0-c5 sigma2   g_e62a6480e8f1dcf5 n= 670 0.1299  0.6463  0.3888  0.2813
+  key c0-c5 sigma2   g_e666ac0dfb3e9f5a n= 404 0.1312  0.6597  0.3892  0.2963
+  key c0-c5 sigma2   ALL              n=3069  0.1404  0.6565  0.3925  0.2998
+  pair error rate by true angles: (-5,0) 0.399, (-5,5) 0.338, (-5,10) 0.236, (0,5) 0.421, (0,10) 0.308, (5,10) 0.359
+  position accuracy by angle position (-5,0,5,10): 0.441 0.312 0.332 0.486
+  key c0-c5 sigma0   g_3e9fe6b6d2642a44 n= 493 0.0649  0.5551  0.2875  0.1779
+  key c0-c5 sigma0   g_549db4a2f284cd89 n= 718 0.0474  0.5464  0.2702  0.1901
+  key c0-c5 sigma0   g_a8928c943d46966a n= 784 0.0408  0.5019  0.2586  0.1383
+  key c0-c5 sigma0   g_e62a6480e8f1dcf5 n= 670 0.0403  0.5211  0.2541  0.1602
+  key c0-c5 sigma0   g_e666ac0dfb3e9f5a n= 404 0.0594  0.5425  0.2698  0.1605
+  key c0-c5 sigma0   ALL              n=3069  0.0486  0.5304  0.2665  0.1644
+     top outcomes: 1234 0.170, 1243 0.144, 1432 0.116, 1342 0.108, 2134 0.093
+     6x6 mean corr in angle order: 1.00 0.20 0.13 0.07 0.05 0.03 | 0.20 1.00 0.14 0.09 0.06 0.03 | 0.13 0.14 1.00 0.08 0.05 0.06 | 0.07 0.09 0.08 1.00 0.16 0.03 | 0.05 0.06 0.05 0.16 1.00 0.02 | 0.03 0.03 0.06 0.03 0.02 1.00
+  best path sigma2   g_3e9fe6b6d2642a44 n= 493 0.1704  0.6670  0.4189  0.3350
+     top outcomes: 2134 0.184, 1324 0.159, 2314 0.121, 3124 0.084, 1234 0.075
+     6x6 mean corr in angle order: 1.00 0.06 0.05 0.02 -0.00 -0.00 | 0.06 1.00 0.03 0.11 -0.00 0.01 | 0.05 0.03 1.00 0.04 -0.00 0.00 | 0.02 0.11 0.04 1.00 0.01 0.02 | -0.00 -0.00 -0.00 0.01 1.00 0.10 | -0.00 0.01 0.00 0.02 0.10 1.00
+  best path sigma2   g_549db4a2f284cd89 n= 718 0.0752  0.6553  0.3774  0.3795
+     top outcomes: 1234 0.327, 4321 0.091, 2134 0.080, 1243 0.075, 2143 0.041
+     6x6 mean corr in angle order: 1.00 0.10 0.09 0.07 0.05 0.04 | 0.10 1.00 0.15 0.07 0.04 0.06 | 0.09 0.15 1.00 0.14 0.08 0.07 | 0.07 0.07 0.14 1.00 0.16 0.08 | 0.05 0.04 0.08 0.16 1.00 0.11 | 0.04 0.06 0.07 0.08 0.11 1.00
+  best path sigma2   g_a8928c943d46966a n= 784 0.3265  0.6656  0.4917  0.2803
+     top outcomes: 1234 0.201, 1324 0.109, 1243 0.084, 3124 0.055, 2134 0.054
+     6x6 mean corr in angle order: 1.00 0.12 0.06 0.04 0.03 0.01 | 0.12 1.00 0.15 0.10 0.06 0.02 | 0.06 0.15 1.00 0.14 0.09 0.02 | 0.04 0.10 0.14 1.00 0.08 0.02 | 0.03 0.06 0.09 0.08 1.00 0.04 | 0.01 0.02 0.02 0.02 0.04 1.00
+  best path sigma2   g_e62a6480e8f1dcf5 n= 670 0.2015  0.6470  0.4470  0.3084
+     top outcomes: 1234 0.161, 1324 0.139, 2314 0.131, 2134 0.094, 3124 0.094
+     6x6 mean corr in angle order: 1.00 0.06 0.06 0.02 0.01 0.00 | 0.06 1.00 0.12 0.10 0.01 -0.00 | 0.06 0.12 1.00 0.13 0.04 0.01 | 0.02 0.10 0.13 1.00 0.03 0.02 | 0.01 0.01 0.04 0.03 1.00 0.11 | 0.00 -0.00 0.01 0.02 0.11 1.00
+  best path sigma2   g_e666ac0dfb3e9f5a n= 404 0.1609  0.6679  0.4239  0.3009
+  best path sigma2   ALL              n=3069  0.1935  0.6597  0.4346  0.3248

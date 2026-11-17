@@ -1,0 +1,18 @@
+time	name	score	note
+2026-10-08T16:56:41	s_xc16	0.4686	fold 0 only, xc res16 40ep
+2026-10-08T16:59:07	s_xc32	0.497	fold 0 only, xc res32 40ep
+2026-10-08T17:10:52	f_xc16	0.4327	5 folds: .469 .528 .448 .407 .312; xc res16 40ep
+2026-10-08T17:25:08	f_xc32	0.4504	5 folds: .497 .529 .478 .428 .319; xc res32 40ep
+2026-10-08T17:25:10	f_xc16_aug	0.3135	vshift 16 + transpose: -0.12, the shift between views is itself a cue
+2026-10-08T17:40:47	f_e02_v4	0.4385	supervised shifts+coords res16 vshift4: .473 .464 .482 .430 .344
+2026-10-08T17:40:49	f_e02_v8	0.4313	same vshift8: .467 .528 .430 .403 .329
+2026-10-08T18:03:20	v1_run	0.449	xc32 5 fold models in solution.py: .511 .527 .472 .412 .324
+2026-10-08T18:28:07	f_x32_v4	0.4596	xc32 vshift4: .495 .497 .501 .451 .354
+2026-10-08T18:28:08	f_x32_band2	0.4514	xc32 + tiny band head: .523 .540 .474 .412 .307, no gain
+2026-10-08T19:57:28	f_e02_r32v4	0.4646	shift model res32 vshift4: .509 .486 .517 .457 .354
+2026-10-08T19:57:29	f_x32_v4_s1_ptta	0.4613	xc32 v4 seed1 with 24 shuffle views (+0.006 over plain .4549)
+2026-10-08T20:25:41	f_e02_r32v4_s1	0.4616	seed 1: .525 .486 .503 .433 .361
+2026-10-08T20:25:42	f_e02_r32v8	0.4561	vshift 8: .505 .538 .469 .434 .334
+2026-10-08T20:25:43	blend4	0.4743	avg of xc32 v4 x2 + shift model r32 v4 + v8; every 2 to 5 model average lands at .471 to .474
+2026-10-08T20:46:42	f_x32_v4_rot	0.445	transpose aug, folds 1-2 only: .428 .462, worse
+2026-10-08T21:41:23	v2_run	0.4703	both models per held-out series, in solution.py: .503 .514 .529 .461 .344 (v1 .511 .527 .472 .412 .324)

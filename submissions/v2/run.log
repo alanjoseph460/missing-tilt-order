@@ -1,0 +1,17 @@
+/workspace/missing-tilt-order/submissions/v2/solution.py:189: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.view_net = nn.TransformerEncoder(layer, 2)
+/workspace/missing-tilt-order/submissions/v2/solution.py:189: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.view_net = nn.TransformerEncoder(layer, 2)
+held-out series g_3e9fe6b6d2642a44 (493 rows): correlation model 0.5051, shift model 0.5010, both 0.5030
+held-out series g_549db4a2f284cd89 (718 rows): correlation model 0.4972, shift model 0.4986, both 0.5139
+held-out series g_a8928c943d46966a (784 rows): correlation model 0.5064, shift model 0.5255, both 0.5293
+held-out series g_e62a6480e8f1dcf5 (670 rows): correlation model 0.4537, shift model 0.4552, both 0.4612
+held-out series g_e666ac0dfb3e9f5a (404 rows): correlation model 0.3441, shift model 0.3416, both 0.3441
+held-out accuracy over all training rows, both models: 0.4822
+all-series models, round 1 of 5 done
+all-series models, round 2 of 5 done
+all-series models, round 3 of 5 done
+all-series models, round 4 of 5 done
+all-series models, round 5 of 5 done
+wrote 2834 rows to working/submission.csv
+wall time: 3167s

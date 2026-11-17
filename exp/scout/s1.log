@@ -1,0 +1,88 @@
+D:\eris-windows-gpu-kit-golden-apple\eris-windows-gpu-kit-golden-apple\solutions\working\missing-tilt-order\exp\scout\s1_basic.py:33: Pandas4Warning: Starting with pandas version 4.0 all arguments of sum will be keyword-only.
+  tab["all"] = tab.sum(1)
+train (3069, 4) ['id', 'group_id', 'array_index', 'order'] {'id': 'str', 'group_id': 'str', 'array_index': 'int64', 'order': 'str'}
+test (2834, 3) ['id', 'group_id', 'array_index']
+sample (2834, 2) ['id', 'order'] {'1234': 2834}
+ids unique True True overlap 0 sample ids == test ids True same order True
+group overlap set()
+train sorted by id True test sorted by id True
+
+SERIES
+train 3e9f rows 493 npz (493, 6, 64, 64) uint8 index covers 0..N-1 True min 6 max 255 mean 128.00 std 31.99
+train 549d rows 718 npz (718, 6, 64, 64) uint8 index covers 0..N-1 True min 13 max 255 mean 128.00 std 31.99
+train a892 rows 784 npz (784, 6, 64, 64) uint8 index covers 0..N-1 True min 17 max 255 mean 128.00 std 31.99
+train e62a rows 670 npz (670, 6, 64, 64) uint8 index covers 0..N-1 True min 15 max 255 mean 128.00 std 31.99
+train e666 rows 404 npz (404, 6, 64, 64) uint8 index covers 0..N-1 True min 14 max 255 mean 128.00 std 31.99
+test 0262 rows 614 npz (614, 6, 64, 64) uint8 index covers 0..N-1 True min 15 max 255 mean 128.00 std 31.99
+test 7fae rows 904 npz (904, 6, 64, 64) uint8 index covers 0..N-1 True min 17 max 255 mean 128.00 std 31.99
+test c61c rows 690 npz (690, 6, 64, 64) uint8 index covers 0..N-1 True min 10 max 255 mean 128.00 std 31.99
+test df60 rows 626 npz (626, 6, 64, 64) uint8 index covers 0..N-1 True min 10 max 255 mean 128.00 std 31.99
+
+TARGET
+malformed 0
+group_id  3e9f  549d  a892  e62a  e666  all
+order                                      
+1234        20    32    38    23    16  129
+1243        22    26    26    24    21  119
+1324        21    34    31    33    17  136
+1342        23    37    28    17    13  118
+1423        22    32    27    30    19  130
+1432        15    27    28    31    13  114
+2134        22    27    29    26    10  114
+2143        15    26    35    31    20  127
+2314        21    28    28    28    16  121
+2341        24    37    31    34    14  140
+2413        13    27    29    28    22  119
+2431        23    25    39    22    13  122
+3124        25    28    41    30    14  138
+3142        18    30    43    33    22  146
+3214        16    31    29    27    14  117
+3241        22    22    30    26    18  118
+3412        18    34    19    20    21  112
+3421        19    33    38    40    17  147
+4123        31    27    35    30    18  141
+4132        15    30    42    19    17  123
+4213        23    37    30    25    20  135
+4231        25    27    36    29    10  127
+4312        22    31    29    31    16  129
+4321        18    30    43    33    23  147
+chi2 uniform 3e9f: n 493 chi2 18.6 p 0.725 min 13 max 31 majority share 0.0629
+chi2 uniform 549d: n 718 chi2 12.4 p 0.963 min 22 max 37 majority share 0.0515
+chi2 uniform a892: n 784 chi2 27.3 p 0.244 min 19 max 43 majority share 0.0548
+chi2 uniform e62a: n 670 chi2 23.5 p 0.432 min 17 max 40 majority share 0.0597
+chi2 uniform e666: n 404 chi2 18.9 p 0.710 min 10 max 23 majority share 0.0569
+chi2 uniform all: n 3069 chi2 22.1 p 0.517 min 112 max 147 majority share 0.0479
+angle rank 1 slot counts [746, 743, 778, 802]
+angle rank 2 slot counts [789, 745, 791, 744]
+angle rank 3 slot counts [733, 839, 729, 768]
+angle rank 4 slot counts [801, 742, 771, 755]
+
+DUPLICATES
+train: rows with a repeated view 0, view hashes seen more than once 3 of 18411, rows with the same 6 views as another row 0
+test: rows with a repeated view 0, view hashes seen more than once 1 of 17003, rows with the same 6 views as another row 0
+view hashes shared by train and test 0
+constant views [('train', 0), ('test', 0)]
+e666 slot0 pair corr (sigma 2, no shift search): max 0.962 p99.9 0.317 median 0.020
+a892 slot0 pair corr (sigma 2, no shift search): max 0.981 p99.9 0.294 median 0.023
+0262 slot0 pair corr (sigma 2, no shift search): max 0.799 p99.9 0.298 median 0.025
+
+INDEX AND ID AGAINST LABEL
+spearman array_index vs order code SignificanceResult(statistic=np.float64(-0.03621213417486534), pvalue=np.float64(0.04486258781097251))
+spearman id vs order code SignificanceResult(statistic=np.float64(0.0035370995308820173), pvalue=np.float64(0.844711141204617))
+slot at angle rank 1: vs array_index rho -0.028 p 0.121; vs id rho +0.014 p 0.454
+slot at angle rank 2: vs array_index rho -0.019 p 0.294; vs id rho -0.039 p 0.030
+slot at angle rank 3: vs array_index rho -0.011 p 0.539; vs id rho +0.002 p 0.893
+slot at angle rank 4: vs array_index rho +0.057 p 0.001; vs id rho +0.023 p 0.206
+mod 2: chi2 p array_index 0.106, id 0.468
+mod 3: chi2 p array_index 0.669, id 0.804
+mod 4: chi2 p array_index 0.416, id 0.487
+mod 6: chi2 p array_index 0.856, id 0.775
+mod 24: chi2 p array_index 0.731, id 0.872
+3e9f same order as next array_index 0.0386 (chance 0.0417)
+549d same order as next array_index 0.0488 (chance 0.0417)
+a892 same order as next array_index 0.0460 (chance 0.0417)
+e62a same order as next array_index 0.0254 (chance 0.0417)
+e666 same order as next array_index 0.0273 (chance 0.0417)
+same order as next id 0.04106910039113429
+same order as next csv row 0.04106910039113429
+array_index vs csv row order spearman 0.010080850191506539

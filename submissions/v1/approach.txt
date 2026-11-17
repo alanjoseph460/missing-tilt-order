@@ -1,0 +1,9 @@
+A convolutional network trained from scratch in the script orders the four middle views.
+
+A CNN encoder with shared weights turns each 64 px view into a feature map. The views of one particle are shifted against each other by an unknown amount, so for every pair of views the feature maps are cross-correlated over all shifts at once with an FFT, giving a correlation map per feature group. A second CNN reads these maps and scores the signed rank gap between the two views. A small transformer over pooled per-view features scores each view's rank. The score of each of the 24 possible orders is the sum of the pair and view scores that order implies, with the two known endpoints fixed. The loss is cross-entropy over the 24 orders plus the pair and view losses.
+
+Training uses only the supplied training rows. Rows are kept in angle order; at each step the middle views are re-shuffled, all six views get the same flips, and each view gets its own small integer shift.
+
+Validation holds out whole series: five models are trained, each without one training series, and the held-out exact-order accuracy is printed. The test prediction for a row averages the five models over four flipped copies of that row. Each test row is predicted on its own; nothing is computed across test rows.
+
+Tried and dropped: larger view shifts with a transpose, a correlation layer limited to small shifts, and training beyond 40 epochs (overfitted).
